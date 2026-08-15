@@ -1,0 +1,19 @@
+# Maven
+target/
+
+# Allure
+allure-results/
+allure-report/
+.allure/
+
+# Screenshots
+screenshots/
+
+# VS Code
+.vscode/
+
+# Java
+*.class
+
+# Logs
+*.log
