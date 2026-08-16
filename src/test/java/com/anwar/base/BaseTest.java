@@ -20,36 +20,80 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
 
-        String browser = ConfigReader.get("browser");
-        String url = ConfigReader.get("url");
-        int timeout = Integer.parseInt(ConfigReader.get("timeout"));
+        System.out.println(
+                "========== BaseTest.setUp() CALLED =========="
+        );
 
+        // Read browser
+        String browser = ConfigReader.get("browser");
+
+        System.out.println(
+                "Browser from config: " + browser
+        );
+
+        // Create driver
         driver = DriverFactory.createDriver(browser);
 
+        System.out.println(
+                "Driver created: " + driver
+        );
+
+        // Read timeout
+        int timeout = Integer.parseInt(
+                ConfigReader.get("timeout")
+        );
+
+        // Maximize browser
         driver.manage().window().maximize();
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        // Create explicit wait
+        wait = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(timeout)
+        );
 
+        // Read URL
+        String url = ConfigReader.get("url");
+
+        System.out.println(
+                "Opening URL: " + url
+        );
+
+        // Open application
         driver.get(url);
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) {
 
-        // Take screenshot only when test fails
+        System.out.println(
+                "Test completed: " + result.getName()
+        );
+
+        // Take screenshot when test fails
         if (result.getStatus() == ITestResult.FAILURE) {
 
-            String testName = result.getMethod().getMethodName();
+            System.out.println(
+                    "Test failed. Capturing screenshot..."
+            );
 
-            ScreenshotUtil.captureScreenshot(driver, testName);
+            if (driver != null) {
+
+                ScreenshotUtil.captureScreenshot(
+                        driver,
+                        result.getName()
+                );
+            }
         }
 
-        // Always close browser
+        // Close browser
         if (driver != null) {
 
-            driver.quit();
+            System.out.println(
+                    "Closing browser..."
+            );
 
-            driver = null;
+            driver.quit();
         }
     }
 }

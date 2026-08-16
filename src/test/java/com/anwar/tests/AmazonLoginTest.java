@@ -8,8 +8,8 @@ import com.anwar.pages.AmazonLoginPage;
 
 public class AmazonLoginTest extends BaseTest {
 
-   @Test(groups = "smoke")
-public void verifyLoginPage()  {
+    @Test(groups = "smoke")
+    public void verifyLoginPage() {
 
         AmazonLoginPage loginPage = new AmazonLoginPage(driver);
 
