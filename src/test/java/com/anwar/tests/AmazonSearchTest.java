@@ -22,6 +22,7 @@ public class AmazonSearchTest extends BaseTest {
 
         String currentUrl = driver.getCurrentUrl();
             // Jenkins SCM trigger test
+            // Jenkins pipeline trigger test
         Assert.assertTrue(
                 currentUrl.toLowerCase().contains(product.toLowerCase()),
                 "Search results page was not displayed for: " + product
